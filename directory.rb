@@ -44,11 +44,18 @@ end
 #def print(students)
 #  students.each { |n| puts "#{n[:name]} (#{n[:cohort]} cohort)".center(40) }
 #end
-def print_body(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+#def print_body(students)
+#  students.each do |student|
+#    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+#  end
+#end
+def print_index(students)
+  students.each_with_index do |student,index|
+    #students[student] = index
+    puts "#{index}.#{student[:name]}(#{ student[:cohort]} cohort)"
   end
 end
+
 
 #finally, we print the total number of students
 def print_footer(students)
@@ -58,5 +65,6 @@ end
 #nothing happens until we call the methods
 students = input_students
 print print_header
-print print_body(students)
+#print print_body(students)
+print print_index(students)
 print print_footer(students)
