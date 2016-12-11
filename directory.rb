@@ -15,14 +15,35 @@
   {name: "Joffrey Baratheon", cohort: :january},
   {name: "Norman Bates", cohort: :june}
 ]
-#puts a check of hash
-#puts "Students N -Z:"
-#puts students.select {|name:,cohort:| name > "N*" }
+def interactive_menu
+  @students =[]
+  loop do
+    #1. print the menu and ask user what to do
+      puts "1. Input the students"
+      puts "2. Show the students"
+      puts "9. Exit"  #9 because we'll be adding more items
+      # 2. read the input and save it to a variable
+      selection = gets.chomp
+      # 3. do what the user has asked
+      case selection
+      when "1"
+        students = input_students
+      when "2"
+        print_header
+        print_index
+        print_footer
+      when "9"
+        exit # this will cause program to terminate
+      else
+        puts "I don't know what you meant, try again"
+      end
+    end
+  end
 #use rstrip to get rid of space?
 def input_students
    puts "Please enter the name of the student"
    #create an empty array
-   students = []
+   @students = []
    #gets the first name
    name = gets.chomp
    puts "..and the cohort"
@@ -36,8 +57,8 @@ def input_students
    while !name.empty? do
      #add the student has to the array
      #9.singular and plural
-     students << {name: name, cohort: cohort.to_sym, hobbies: "cooking", country: :Wales, height: "185 cm"}
-     case students.length
+     @students << {name: name, cohort: cohort.to_sym, hobbies: "cooking", country: :Wales, height: "185 cm"}
+     case @students.length
      when 1 then puts "We have 1 student"
         when 0 then puts "We have no students?"
         else  puts "Now we have #{students.count} students"
@@ -47,7 +68,7 @@ def input_students
      name = gets.chomp
    end
    # return the array of students
-   students
+   @students
 end
 
 def print_header
@@ -55,8 +76,8 @@ def print_header
    puts "-------------"
 end
 #5. Add height, hobbies and country  6. use center and ljust
-def print_body(students)
-    students.each do |student|
+def print_body
+    @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort) #{student[:height]} #{student[:country]} ".center(40)
   end
 end
@@ -136,11 +157,12 @@ end
 
 #nothing happens until we call the methods
 #students = input_students
+interactive_menu
 print print_header
 #print print_body
 print print_index
-print print_specific_students
-print print_less_twelve
+#print print_specific_students
+#print print_less_twelve
 #print loop_body(students)
 print sort_months_list
 print print_footer
