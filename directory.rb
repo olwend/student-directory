@@ -2,57 +2,64 @@
 #first we print the list of students
 # let's put all the students into an array
 
-@students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november, hobbies: "cooking", country: :Wales, height:"185 cm"},
-  {name: "Darth Vader", cohort: :november,hobbies: "cooking", country: :France, height: "185 cm"},
-  {name: "Nurse Ratched", cohort: :january,hobbies: "cooking", country: :Eire, height: "185 cm"},
-  {name: "Michael Corleone", cohort: :march,hobbies: "cooking", country: :USA, height: "185 cm"},
-  {name: "Alex DeLarge", cohort: :march},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :june},
-  {name: "The Joker", cohort: :june},
-  {name: "Joffrey Baratheon", cohort: :january},
-  {name: "Norman Bates", cohort: :june}
-]
-def interactive_menu
+#@students = [
+#  {name: "Dr. Hannibal Lecter", cohort: :november, hobbies: "cooking", country: :Wales, height:"185 cm"},
+#  {name: "Darth Vader", cohort: :november,hobbies: "cooking", country: :France, height: "185 cm"},
+#  {name: "Nurse Ratched", cohort: :january,hobbies: "cooking", country: :Eire, height: "185 cm"},
+#  {name: "Michael Corleone", cohort: :march,hobbies: "cooking", country: :USA, height: "185 cm"},
+#  {name: "Alex DeLarge", cohort: :march},
+#  {name: "The Wicked Witch of the West", cohort: :november},
+#  {name: "Terminator", cohort: :november},
+#  {name: "Freddy Krueger", cohort: :june},
+#  {name: "The Joker", cohort: :june},
+#  {name: "Joffrey Baratheon", cohort: :january},
+#  {name: "Norman Bates", cohort: :june}
+#]
   @students =[]
+def interactive_menu
   loop do
-    #1. print the menu and ask user what to do
-      puts "1. Input the students"
-      puts "2. Show the students"
-      puts "9. Exit"  #9 because we'll be adding more items
-      # 2. read the input and save it to a variable
-      selection = gets.chomp
-      # 3. do what the user has asked
-      case selection
-      when "1"
-        students = input_students
-      when "2"
-        print_header
-        print_index
-        print_footer
-      when "9"
-        exit # this will cause program to terminate
-      else
-        puts "I don't know what you meant, try again"
-      end
+      print_menu
+      process(gets.chomp)
     end
   end
+
+#1. print the menu and ask user what to do
+def print_menu
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"  #9 because we'll be adding more items
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "I don't know what you mean, try again"
+  end
+end
+
+def show_students
+  print_header
+  print_index
+  print_footer
+end
 #use rstrip to get rid of space?
 def input_students
    puts "Please enter the name of the student"
    #create an empty array
    @students = []
    #gets the first name
+
    name = gets.chomp
    puts "..and the cohort"
    cohort = gets.chomp
    #7 supply a default or check against list
    #Use a hash default method? When inputting data to Students
-      if !@Months.include?(cohort)
-        cohort = :April
-      end
    #while name is not empty, repeat this code
    while !name.empty? do
      #add the student has to the array
@@ -61,11 +68,17 @@ def input_students
      case @students.length
      when 1 then puts "We have 1 student"
         when 0 then puts "We have no students?"
-        else  puts "Now we have #{students.count} students"
+        else  puts "Now we have #{@students.count} students"
         end
      puts "To finish, just hit return twice"
      # get another name from the user
+     puts "Please enter the name of the student"
      name = gets.chomp
+     puts "..and the cohort"
+     cohort = gets.chomp.downcase
+     if !@Months.include?(cohort)
+       cohort = :april
+     end
    end
    # return the array of students
    @students
