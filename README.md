@@ -9,8 +9,8 @@ ruby directory.rb
 ```
 ## What you can do ##
 
-```enrollment
-deletion
+```
+enrollment
 tracking
 reports
 ```
